@@ -10,17 +10,18 @@ To start a jenkins instance, execute:
 docker run \
         --restart always \
         --detach
-	-p 8080:8080 \
-	-p 50000:50000 \
-	-v /path/to/jenkins/home:/var/jenkins_home \
-	-v /path/to/root/home:/root \
-  	sailsit/jenkins-docker
+        -p 8080:8080 \
+        -p 50000:50000 \
+        -v /path/to/jenkins/home:/var/jenkins_home \
+        -v /path/to/root/home:/root \
+	-v /var/run/docker.sock:/var/run/docker.sock
+        sailsit/jenkins-docker
 ```
 
 Or create a `docker-compose.yml`:
 
 ```yaml
-version: '3.6'
+version: '3.7'
 
 services:
   jenkins:
@@ -31,7 +32,8 @@ services:
       - 50000:50000
     volumes:
       - jenkins_home:/var/jenkins_home
-      - root:/root 
+      - root:/root
+      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   jenkins_home:
